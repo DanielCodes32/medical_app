@@ -1,5 +1,5 @@
 class Apis {
- static const String baseUrl = "http://192.168.1.8:5432/api";
+  static const String baseUrl = "http://192.168.1.7:3000/api";
   static const String login = "/auth/login";
   static const String register = "/auth/register";
   static const String forgetPass = "forget-password";

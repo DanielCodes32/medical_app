@@ -1,8 +1,12 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:medical_app/core/constants/app_assets.dart';
+import 'package:medical_app/core/functions/navigations.dart';
 import 'package:medical_app/core/routes/routes.dart';
+import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
 import 'package:medical_app/core/widgets/svg_pic.dart';
 
@@ -17,9 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        context.go(Routes.welcome);
+    Future.delayed(const Duration(seconds: 3), () async{
+      if (SharedPref.gettoken() != "") {
+        pushReplacement(context, Routes.home);
+      } else {
+        pushReplacement(context, Routes.welcome);
       }
     });
   }

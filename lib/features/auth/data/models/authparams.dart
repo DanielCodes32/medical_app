@@ -4,12 +4,7 @@ class Authparams {
   String? password;
   String? role;
 
-  Authparams({
-    this.username,
-    this.email,
-    this.password,
-    this.role,
-  });
+  Authparams({this.username, this.email, this.password, this.role});
 
   Map<String, dynamic> toJson() {
     return {

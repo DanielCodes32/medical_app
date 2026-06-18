@@ -9,7 +9,6 @@ void pushReplacement(BuildContext context, String routeName, {Object? extra}) {
   context.pushReplacement(routeName, extra: extra);
 }
 
-
 void pushToBase(BuildContext context, String routeName, {Object? extra}) {
   context.go(routeName, extra: extra);
 }

@@ -7,9 +7,6 @@ import 'package:medical_app/main_app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Create an instance of your DatabaseService
-
-
   await SharedPref.init();
   DioProvider.init();
 

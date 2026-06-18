@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medical_app/core/routes/routes.dart';
+import 'package:medical_app/features/auth/presentation/page/login_screen.dart';
 import 'package:medical_app/features/auth/presentation/page/register_screen.dart';
+import 'package:medical_app/features/main_app_screen/base_home.dart';
 import 'package:medical_app/features/splash/splash_screen.dart';
 import 'package:medical_app/features/welcome/welcome_screen.dart';
 
@@ -21,11 +23,15 @@ class AppRouter {
       ),
       GoRoute(
         path: Routes.login,
-        builder: (context, state) => const WelcomeScreen(),
+        builder: (context, state) => const LoginScreen(),
       ),
       GoRoute(
         path: Routes.register,
         builder: (context, state) => RegisterScreen(),
+      ),
+      GoRoute(
+        path: Routes.home,
+        builder: (context, state) => const BaseHome(),
       ),
     ],
   );

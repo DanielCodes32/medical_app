@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:medical_app/core/functions/custom_snake_bar.dart';
+import 'package:medical_app/core/functions/navigations.dart';
 import 'package:medical_app/core/functions/validation.dart';
+import 'package:medical_app/core/routes/routes.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
 import 'package:medical_app/core/widgets/custom_form_field.dart';
@@ -28,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         listener: (context, state) {
           if (state is AuthSuccessState) {
             mydiag(context, "Registration successful!", AppColors.primaryColor);
+            pushReplacement(context, Routes.login);
           } else if (state is AuthErrorState) {
             mydiag(
               context,
@@ -228,6 +231,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onTap: () {
                                   if (cubit.formKey.currentState!.validate()) {
                                     cubit.register();
+                                    
                                   }
                                 },
                               ),
@@ -243,7 +247,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             const Gap(5),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                pushReplacement(context, Routes.login);
+                              },
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets
                                     .zero, // removes all internal padding

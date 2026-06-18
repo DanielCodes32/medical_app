@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:medical_app/features/auth/data/models/auth_response/user.dart';
 
@@ -28,6 +29,7 @@ class SharedPref {
 
   static String gettoken() {
     return pref.getString(ktoken) ?? "";
+
   }
 
   static Future<void> saveotp(String? otp) async {
@@ -56,7 +58,12 @@ class SharedPref {
   }
 
   static Future<void> saveuserinfo(User? user) async {
-    if (user == null) return;
+    if (user == null) {
+      log("user is null");
+      return;
+    } else {
+      log(user.toJson().toString());
+    }
     await pref.setString(kuser, jsonEncode(user.toJson()));
   }
 

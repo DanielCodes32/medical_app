@@ -8,7 +8,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: Colors.transparent,
-      body: WelcomeSlider(),
+      body: SafeArea(child: WelcomeSlider()),
     );
   }
 }

@@ -16,12 +16,17 @@ class TextStyles {
     fontWeight: FontWeight.w700,
     color: AppColors.blackColor,
   );
-
-  static TextStyle button = TextStyle(
-    fontSize: 18,
+  static TextStyle title1 = TextStyle(
+    fontSize: 20,
     fontFamily: AppFonts.rubik,
     fontWeight: FontWeight.w500,
     color: AppColors.backgroundColor,
+  );
+  static TextStyle button = TextStyle(
+    fontSize: 18,
+    fontFamily: AppFonts.rubik,
+    fontWeight: FontWeight.w400,
+    color: AppColors.darkwhite,
   );
 
   static TextStyle body1 = TextStyle(
@@ -32,7 +37,9 @@ class TextStyles {
   );
 
   static TextStyle caption2 = TextStyle(
-    color: AppColors.darkgreycolor,
-    fontSize: 14,
+    fontSize: 12,
+    fontFamily: AppFonts.rubik,
+    fontWeight: FontWeight.w400,
+    color: AppColors.bodycolor,
   );
 }

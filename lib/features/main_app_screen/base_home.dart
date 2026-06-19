@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_app/core/constants/app_assets.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/widgets/svg_pic.dart';
+import 'package:medical_app/features/home/presentation/cubit/home_cubit.dart';
+import 'package:medical_app/features/home/presentation/cubit/home_state.dart';
 import 'package:medical_app/features/home/presentation/page/home_screen.dart';
 
 class BaseHome extends StatefulWidget {
@@ -22,23 +23,18 @@ class _BaseHomeState extends State<BaseHome> {
     selectedIndex = widget.currentIndex ?? 0;
   }
 
- 
-
   int selectedIndex = 0;
   final List<Widget> screens = [
     Center(
-      child: HomeScreen(),
+      child: BlocProvider<HomeCubit>(
+        create: (BuildContext context) => HomeCubit()..getPopularDoctors(),
+        child: HomeScreen(),
+      ),
+    ),
 
-    ),
-    Center(
-      child: Text("favorite"),
-    ),
-    Center(
-      child: Text("book"),
-    ),
-    Center(
-      child: Text("message"),
-    ),
+    Center(child: Text("favorite")),
+    Center(child: Text("book")),
+    Center(child: Text("message")),
   ];
   @override
   Widget build(BuildContext context) {
@@ -64,7 +60,7 @@ class _BaseHomeState extends State<BaseHome> {
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
-         
+
           child: navBar(),
         ),
       ),
@@ -83,7 +79,7 @@ class _BaseHomeState extends State<BaseHome> {
       },
       items: [
         BottomNavigationBarItem(
-          icon: SvgPic(assetName: AppAssets.home,color: AppColors.navicon),
+          icon: SvgPic(assetName: AppAssets.home, color: AppColors.navicon),
           activeIcon: SvgPic(
             assetName: AppAssets.home,
             color: AppColors.primaryColor,

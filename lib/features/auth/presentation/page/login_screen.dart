@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyles.body1,
                           ),
                           const Gap(40),
-            
+
                           const Gap(18),
                           CustomFormField(
                             controller: cubit.emailController,
@@ -94,10 +94,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const Gap(24),
-            
+
                           // Selectable Buttons for Patient / Doctor role
                           const Gap(16),
-            
+
                           const Gap(24),
                           state is AuthLoadingState
                               ? const CircularProgressIndicator(
@@ -106,7 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               : MainButton(
                                   title: "Login In",
                                   onTap: () {
-                                    if (cubit.formKey.currentState!.validate()) {
+                                    if (cubit.formKey.currentState!
+                                        .validate()) {
                                       cubit.login();
                                     }
                                   },
@@ -115,8 +116,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextButton(
                             onPressed: () {},
                             style: TextButton.styleFrom(
-                              padding:
-                                  EdgeInsets.zero, // removes all internal padding
+                              padding: EdgeInsets
+                                  .zero, // removes all internal padding
                               minimumSize: Size(
                                 0,
                                 0,
@@ -133,7 +134,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const Gap(120),
-                          
                         ],
                       ),
                     ),
@@ -141,38 +141,34 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               bottomNavigationBar: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don’t have an account?",
-                                style: TextStyles.body1.copyWith(
-                                  color: AppColors.primaryColor,
-                                ),
-                              ),
-                              const Gap(5),
-                              TextButton(
-                                onPressed: () {
-                                  pushReplacement(context, "/register");
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets
-                                      .zero, // removes all internal padding
-                                  minimumSize: Size(
-                                    0,
-                                    0,
-                                  ), // prevents default min size
-                                  tapTargetSize: MaterialTapTargetSize
-                                      .shrinkWrap, // tightens hit area
-                                ),
-                                child: Text(
-                                  "Join us",
-                                  style: TextStyles.body1.copyWith(
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don’t have an account?",
+                    style: TextStyles.body1.copyWith(
+                      color: AppColors.primaryColor,
+                    ),
+                  ),
+                  const Gap(5),
+                  TextButton(
+                    onPressed: () {
+                      pushReplacement(context, "/register");
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero, // removes all internal padding
+                      minimumSize: Size(0, 0), // prevents default min size
+                      tapTargetSize:
+                          MaterialTapTargetSize.shrinkWrap, // tightens hit area
+                    ),
+                    child: Text(
+                      "Join us",
+                      style: TextStyles.body1.copyWith(
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },

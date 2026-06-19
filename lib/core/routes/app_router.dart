@@ -29,10 +29,7 @@ class AppRouter {
         path: Routes.register,
         builder: (context, state) => RegisterScreen(),
       ),
-      GoRoute(
-        path: Routes.home,
-        builder: (context, state) => const BaseHome(),
-      ),
+      GoRoute(path: Routes.home, builder: (context, state) => const BaseHome()),
     ],
   );
 }

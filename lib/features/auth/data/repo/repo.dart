@@ -15,8 +15,8 @@ class AuthRepo {
       );
       if (response.statusCode == 200) {
         var data = AuthResponse.fromJson(response.data as Map<String, dynamic>);
-        await SharedPref.savetoken( data.data?.token);
-       await SharedPref.saveuserinfo(data.data?.user);
+        await SharedPref.savetoken(data.data?.token);
+        await SharedPref.saveuserinfo(data.data?.user);
         return data;
       } else {
         return null;

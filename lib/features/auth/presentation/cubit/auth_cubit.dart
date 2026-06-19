@@ -7,6 +7,8 @@ import 'package:medical_app/features/auth/presentation/cubit/auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitialState());
   final formKey = GlobalKey<FormState>();
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -30,6 +32,8 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> register() async {
     emit(AuthLoadingState());
     var params = Authparams(
+      firstname: firstnameController.text,
+      lastname: lastnameController.text,
       username: usernameController.text,
       email: emailController.text,
       password: passwordController.text,

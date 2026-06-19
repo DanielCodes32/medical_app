@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -21,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () async{
+    Future.delayed(const Duration(seconds: 3), () async {
       if (SharedPref.gettoken() != "") {
         pushReplacement(context, Routes.home);
       } else {

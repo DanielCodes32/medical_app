@@ -63,8 +63,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const Gap(40),
                         CustomFormField(
+                          controller: cubit.firstnameController,
+                          hintText: "First Name",
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter your first name";
+                            }
+                            return null;
+                          },
+                        ),
+                        const Gap(18),
+                        CustomFormField(
+                          controller: cubit.lastnameController,
+                          hintText: "Last Name",
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter your Last Name";
+                            }
+                            return null;
+                          },
+                        ),
+                        const Gap(18),
+                        CustomFormField(
                           controller: cubit.usernameController,
-                          hintText: "Name",
+                          hintText: "Username",
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Please enter your name";
@@ -231,7 +253,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onTap: () {
                                   if (cubit.formKey.currentState!.validate()) {
                                     cubit.register();
-                                    
                                   }
                                 },
                               ),

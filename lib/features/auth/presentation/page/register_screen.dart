@@ -118,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return "Please enter your password";
                             }
                             if (!isPasswordValid(value)) {
-                              return "Please enter a valid password";
+                              return "Min 8 characters must contain (A-Z, a-z, 0-9, special)";
                             }
                             return null;
                           },

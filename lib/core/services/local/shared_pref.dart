@@ -8,6 +8,7 @@ class SharedPref {
   static const ktoken = "token";
   static const kuser = "user";
   static const kotp = "otp";
+  static const kuserId = "forgot_user_id";
   static const kfavourite = "favourite";
 
   static Future<void> init() async {
@@ -38,6 +39,15 @@ class SharedPref {
 
   static String getotp() {
     return pref.getString(kotp) ?? "";
+  }
+
+  static Future<void> saveUserId(int? userId) async {
+    if (userId == null) return;
+    await pref.setInt(kuserId, userId);
+  }
+
+  static int getUserId() {
+    return pref.getInt(kuserId) ?? 11;
   }
 
   static Future<void> setstring(String key, String value) async {

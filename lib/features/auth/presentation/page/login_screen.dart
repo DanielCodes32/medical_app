@@ -13,6 +13,7 @@ import 'package:medical_app/core/widgets/main_button.dart';
 import 'package:medical_app/core/widgets/mybodyview.dart';
 import 'package:medical_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:medical_app/features/auth/presentation/cubit/auth_state.dart';
+import 'package:medical_app/features/auth/presentation/widgets/forgot_password_sheets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -104,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: AppColors.primaryColor,
                                 )
                               : MainButton(
-                                  title: "Login In",
+                                  title: "Log In",
                                   onTap: () {
                                     if (cubit.formKey.currentState!
                                         .validate()) {
@@ -114,7 +115,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                           const Gap(20),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showForgotPasswordBottomSheet(context);
+                            },
                             style: TextButton.styleFrom(
                               padding: EdgeInsets
                                   .zero, // removes all internal padding

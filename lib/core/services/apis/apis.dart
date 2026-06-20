@@ -1,10 +1,10 @@
 class Apis {
-  static const String baseUrl = "http://192.168.1.3:3000/api";
+  static const String baseUrl = "http://192.168.1.8:3000/api";
   static const String login = "/auth/login";
   static const String register = "/auth/register";
-  static const String forgetPass = "forget-password";
-  static const String checkforgetpassword = "check-forget-password";
-  static const String resetpassword = "reset-password";
+  static const String forgotPassword = "/auth/forgot-password";
+  static const String verifyOtp = "/auth/verify-otp";
+  static const String resetPassword = "/auth/reset-password";
   static const String sliders = "sliders";
   static const String bestseller = "products-bestseller";
   static const String search = "products-search";

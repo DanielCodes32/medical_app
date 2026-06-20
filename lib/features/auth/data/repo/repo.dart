@@ -57,12 +57,14 @@ class AuthRepo {
       if (response.statusCode == 200) {
         final responseData = response.data as Map<String, dynamic>;
         final dataMap = responseData['data'] as Map<String, dynamic>?;
-        
+
         final userId = dataMap?['userid'] as int?;
         await SharedPref.saveUserId(userId);
         return ApiResult(
           success: true,
-          message: dataMap?['message'] as String? ?? responseData['message'] as String?,
+          message:
+              dataMap?['message'] as String? ??
+              responseData['message'] as String?,
           data: responseData,
         );
       } else {
@@ -93,7 +95,9 @@ class AuthRepo {
         final dataMap = responseData['data'] as Map<String, dynamic>?;
         return ApiResult(
           success: true,
-          message: dataMap?['message'] as String? ?? responseData['message'] as String?,
+          message:
+              dataMap?['message'] as String? ??
+              responseData['message'] as String?,
           data: responseData,
         );
       } else {
@@ -124,7 +128,9 @@ class AuthRepo {
         final dataMap = responseData['data'] as Map<String, dynamic>?;
         return ApiResult(
           success: true,
-          message: dataMap?['message'] as String? ?? responseData['message'] as String?,
+          message:
+              dataMap?['message'] as String? ??
+              responseData['message'] as String?,
           data: responseData,
         );
       } else {

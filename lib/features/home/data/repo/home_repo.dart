@@ -9,7 +9,7 @@ class HomeRepo {
   static Future<PopularDoctorsResponse?> getPopularDoctors() async {
     try {
       var response = await DioProvider.get(
-        endpoint: Apis.popularDoctors,
+        endpoint: Apis.searchDoctors,
         headers: {"Authorization": "Bearer ${SharedPref.gettoken()}"},
       );
       if (response.statusCode == 200) {

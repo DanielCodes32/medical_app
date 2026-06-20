@@ -173,9 +173,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               OtpInputWidget(
                 length: 6,
                 controller: cubit.otpController,
-                onCompleted: (code) {
-                  
-                },
+                onCompleted: (code) {},
               ),
               const Gap(32),
               state is VerifyOtpLoadingState
@@ -188,7 +186,11 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
                       title: "Continue",
                       onTap: () {
                         if (cubit.otpController.text.length < 6) {
-                          mydiag(context, "Please enter all 6 digits", AppColors.redcolor);
+                          mydiag(
+                            context,
+                            "Please enter all 6 digits",
+                            AppColors.redcolor,
+                          );
                           return;
                         }
                         cubit.verifyOtp();

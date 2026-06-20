@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medical_app/core/routes/routes.dart';
 import 'package:medical_app/features/auth/presentation/page/login_screen.dart';
 import 'package:medical_app/features/auth/presentation/page/register_screen.dart';
 import 'package:medical_app/features/main_app_screen/base_home.dart';
+import 'package:medical_app/features/search/presentation/cubit/search_cubit.dart';
+import 'package:medical_app/features/search/presentation/page/search_screen.dart';
 import 'package:medical_app/features/splash/splash_screen.dart';
 import 'package:medical_app/features/welcome/welcome_screen.dart';
 
@@ -30,6 +33,8 @@ class AppRouter {
         builder: (context, state) => RegisterScreen(),
       ),
       GoRoute(path: Routes.home, builder: (context, state) => const BaseHome()),
+      GoRoute(path: Routes.search, builder: (context, state) => BlocProvider<SearchCubit>(create: (BuildContext context) { return SearchCubit(); },
+      child: const SearchScreen())),
     ],
   );
 }

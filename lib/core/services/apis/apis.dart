@@ -19,5 +19,6 @@ class Apis {
   static const String governorates = "governorates";
   static const String placeorder = "place-order";
   static const String updateProfile = "update-profile";
-  static const String popularDoctors = "/doctors";
+  static const String searchDoctors = "/doctors";
+
 }

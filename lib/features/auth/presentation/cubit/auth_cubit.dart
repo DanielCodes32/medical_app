@@ -53,12 +53,14 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> forgotPassword() async {
     emit(ForgotPasswordLoadingState());
-    var params = ForgotPasswordParams(
-      email: emailController.text,
-    );
+    var params = ForgotPasswordParams(email: emailController.text);
     var result = await AuthRepo.forgotPassword(params);
     if (result.success) {
-      emit(ForgotPasswordSuccessState(result.message ?? "OTP has been sent to your email!"));
+      emit(
+        ForgotPasswordSuccessState(
+          result.message ?? "OTP has been sent to your email!",
+        ),
+      );
     } else {
       emit(ForgotPasswordErrorState(result.message ?? "Something went wrong"));
     }
@@ -67,13 +69,12 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> verifyOtp() async {
     emit(VerifyOtpLoadingState());
     final userId = SharedPref.getUserId();
-    var params = VerifyOtpParams(
-      userId: userId,
-      otpCode: otpController.text,
-    );
+    var params = VerifyOtpParams(userId: userId, otpCode: otpController.text);
     var result = await AuthRepo.verifyOtp(params);
     if (result.success) {
-      emit(VerifyOtpSuccessState(result.message ?? "OTP verified successfully!"));
+      emit(
+        VerifyOtpSuccessState(result.message ?? "OTP verified successfully!"),
+      );
     } else {
       emit(VerifyOtpErrorState(result.message ?? "Invalid OTP"));
     }
@@ -88,7 +89,11 @@ class AuthCubit extends Cubit<AuthState> {
     );
     var result = await AuthRepo.resetPassword(params);
     if (result.success) {
-      emit(ResetPasswordSuccessState(result.message ?? "Password updated successfully!"));
+      emit(
+        ResetPasswordSuccessState(
+          result.message ?? "Password updated successfully!",
+        ),
+      );
     } else {
       emit(ResetPasswordErrorState(result.message ?? "Something went wrong"));
     }

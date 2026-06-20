@@ -17,4 +17,6 @@ class AppAssets {
   static const String green = 'assets/images/green.png';
   static const String red = 'assets/images/red.png';
   static const String orange = 'assets/images/orange.png';
+  static const String back = 'assets/icons/back.svg';
+  static const String like = 'assets/icons/like.svg';
 }

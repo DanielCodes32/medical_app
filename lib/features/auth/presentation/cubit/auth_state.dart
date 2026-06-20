@@ -8,7 +8,6 @@ class AuthSuccessState extends AuthState {}
 
 class AuthErrorState extends AuthState {}
 
-
 class ForgotPasswordLoadingState extends AuthState {}
 
 class ForgotPasswordSuccessState extends AuthState {
@@ -21,7 +20,6 @@ class ForgotPasswordErrorState extends AuthState {
   ForgotPasswordErrorState(this.message);
 }
 
-
 class VerifyOtpLoadingState extends AuthState {}
 
 class VerifyOtpSuccessState extends AuthState {
@@ -33,7 +31,6 @@ class VerifyOtpErrorState extends AuthState {
   final String message;
   VerifyOtpErrorState(this.message);
 }
-
 
 class ResetPasswordLoadingState extends AuthState {}
 

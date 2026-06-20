@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:medical_app/core/constants/app_assets.dart';
+import 'package:medical_app/core/routes/routes.dart';
 import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
 import 'package:medical_app/core/widgets/custom_form_field.dart';
 import 'package:medical_app/core/widgets/image_container.dart';
 
-import 'package:medical_app/core/widgets/svg_pic.dart';
+
 import 'package:medical_app/features/home/presentation/widgets/colored_container.dart';
 
 import 'package:medical_app/features/home/presentation/widgets/popular_grid.dart';
+
+
+
+import '../../../../core/functions/navigations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -71,8 +76,9 @@ class HomeScreen extends StatelessWidget {
                 child: CustomFormField(
                   hintText: "Search...",
                   readOnly: true,
-                  onTap: () {},
-                  
+                  onTap: () {
+                    pushTo(context,  Routes.search);
+                  },
                 ),
               ),
             ),

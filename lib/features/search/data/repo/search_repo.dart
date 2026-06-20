@@ -4,14 +4,15 @@ import 'dart:developer';
 
 import 'package:medical_app/core/services/apis/apis.dart';
 import 'package:medical_app/core/services/apis/dio_provider.dart';
+import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/features/search/data/models/search_response/search_response.dart';
 
 class SearchRepo {
 
   Future<SearchResponse?> search(String name,String page) async {
     var response = await DioProvider.get(
-      endpoint: Apis.search,
-      
+      endpoint: Apis.searchDoctors,
+      headers: {"Authorization": "Bearer ${SharedPref.gettoken()}"},
       queryParameters: {name: name, page: 1},
     );
     try {

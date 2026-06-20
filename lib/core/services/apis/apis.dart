@@ -7,7 +7,6 @@ class Apis {
   static const String resetPassword = "/auth/reset-password";
   static const String sliders = "sliders";
   static const String bestseller = "products-bestseller";
-  static const String search = "products-search";
   static const String wishlist = "wishlist";
   static const String addToWishlist = "add-to-wishlist";
   static const String removeFromWishlist = "remove-from-wishlist";

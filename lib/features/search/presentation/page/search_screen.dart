@@ -12,8 +12,38 @@ import 'package:medical_app/features/home/presentation/widgets/item.dart';
 import 'package:medical_app/features/search/presentation/cubit/search_cubit.dart';
 import 'package:medical_app/features/search/presentation/cubit/search_state.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      final searchCubit = context.read<SearchCubit>();
+      final query = searchCubit.searchController.text;
+      if (query.isNotEmpty) {
+        searchCubit.search(query, loadMore: true);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +59,7 @@ class SearchScreen extends StatelessWidget {
       ),
       body: MyBodyView(
         child: SingleChildScrollView(
+          controller: _scrollController,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -57,20 +88,31 @@ class SearchScreen extends StatelessWidget {
                       ),
                     );
                   }
-                  return GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 0.65,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      var book = books[index];
-                      return Item(item: book);
-                    },
-                    itemCount: books.length,
+                  return Column(
+                    children: [
+                      GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 0.65,
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                        ),
+                        itemBuilder: (context, index) {
+                          var book = books[index];
+                          return Item(item: book);
+                        },
+                        itemCount: books.length,
+                      ),
+                      if (context.watch<SearchCubit>().isLoadingMore)
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                    ],
                   );
                 },
               ),

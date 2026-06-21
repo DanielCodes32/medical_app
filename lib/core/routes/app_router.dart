@@ -33,8 +33,16 @@ class AppRouter {
         builder: (context, state) => RegisterScreen(),
       ),
       GoRoute(path: Routes.home, builder: (context, state) => const BaseHome()),
-      GoRoute(path: Routes.search, builder: (context, state) => BlocProvider<SearchCubit>(create: (BuildContext context) { return SearchCubit(); },
-      child: const SearchScreen())),
+      GoRoute(
+        path: Routes.search,
+        builder: (context, state) {
+          final query = state.uri.queryParameters['q'];
+          return BlocProvider<SearchCubit>(
+            create: (BuildContext context) => SearchCubit(initialQuery: query),
+            child: const SearchScreen(),
+          );
+        },
+      ),
     ],
   );
 }

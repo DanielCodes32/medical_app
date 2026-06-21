@@ -4,7 +4,6 @@ import 'package:medical_app/core/constants/app_assets.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/widgets/svg_pic.dart';
 import 'package:medical_app/features/home/presentation/cubit/home_cubit.dart';
-import 'package:medical_app/features/home/presentation/cubit/home_state.dart';
 import 'package:medical_app/features/home/presentation/page/home_screen.dart';
 
 class BaseHome extends StatefulWidget {

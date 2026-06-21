@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medical_app/core/functions/navigations.dart';
-import 'package:medical_app/core/routes/routes.dart';
 import 'package:medical_app/core/widgets/svg_pic.dart';
-import 'package:medical_app/features/home/presentation/cubit/home_cubit.dart';
-import 'package:medical_app/features/search/presentation/cubit/search_cubit.dart';
 
 class ColoredContainer extends StatelessWidget {
   final Color color;

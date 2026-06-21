@@ -11,22 +11,46 @@ import 'package:medical_app/core/widgets/image_container.dart';
 
 
 import 'package:medical_app/features/home/presentation/widgets/colored_container.dart';
-
 import 'package:medical_app/features/home/presentation/widgets/popular_grid.dart';
-import 'package:medical_app/features/search/presentation/cubit/search_cubit.dart';
-
-
-
+import 'package:medical_app/features/home/presentation/cubit/home_cubit.dart';
+import 'package:medical_app/features/home/presentation/cubit/home_state.dart';
 import '../../../../core/functions/navigations.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      context.read<HomeCubit>().getPopularDoctors(loadMore: true);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var user = SharedPref.getuserinfo();
     return Scaffold(
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,7 +59,7 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               height: 156,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(25),
                   bottomRight: Radius.circular(25),
                 ),
@@ -79,58 +103,59 @@ class HomeScreen extends StatelessWidget {
                   hintText: "Search...",
                   readOnly: true,
                   onTap: () {
-                    pushTo(context,  Routes.search);
+                    pushTo(context, Routes.search);
                   },
                 ),
               ),
             ),
-            Gap(30),
-            BlocProvider<SearchCubit>(
-              create: (context) => SearchCubit(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ColoredContainer(
-                    color: AppColors.purple,
-                    assetName: AppAssets.dentist,
-                    ontap: () {
-                      
-                      context.read<SearchCubit>().search("dentist");
-                      pushTo(context, Routes.search);
-                    },
-                    
-                  ),
-                  ColoredContainer(
-                    color: AppColors.green,
-                    assetName: AppAssets.cardiology,
-                    ontap: () {
-                      
-                      context.read<SearchCubit>().search("cardiology");
-                      pushTo(context, Routes.search);
-                    },
-                  ),
-                  ColoredContainer(
-                    color: AppColors.orange,
-                    assetName: AppAssets.eye,
-                    ontap: () {
-                      
-                      context.read<SearchCubit>().search("eye");
-                      pushTo(context, Routes.search);
-                    },
-                  ),
-                  ColoredContainer(
-                    color: AppColors.red,
-                    assetName: AppAssets.fitness,
-                    ontap: () {
-                      
-                      context.read<SearchCubit>().search("fitness");
-                      pushTo(context, Routes.search);
-                    },
-                  ),
-                ],
-              ),
+            const Gap(30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ColoredContainer(
+                  color: AppColors.purple,
+                  assetName: AppAssets.dentist,
+                  ontap: () {
+                    pushTo(context, "${Routes.search}?q=dentist");
+                  },
+                ),
+                ColoredContainer(
+                  color: AppColors.green,
+                  assetName: AppAssets.cardiology,
+                  ontap: () {
+                    pushTo(context, "${Routes.search}?q=cardiology");
+                  },
+                ),
+                ColoredContainer(
+                  color: AppColors.orange,
+                  assetName: AppAssets.eye,
+                  ontap: () {
+                    pushTo(context, "${Routes.search}?q=eye");
+                  },
+                ),
+                ColoredContainer(
+                  color: AppColors.red,
+                  assetName: AppAssets.fitness,
+                  ontap: () {
+                    pushTo(context, "${Routes.search}?q=fitness");
+                  },
+                ),
+              ],
             ),
-            PopularGrid(),
+            const PopularGrid(),
+            BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                if (context.read<HomeCubit>().isLoadingMore) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
           ],
         ),
       ),

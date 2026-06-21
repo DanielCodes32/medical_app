@@ -9,13 +9,14 @@ import 'package:medical_app/features/search/data/models/search_response/search_r
 
 class SearchRepo {
 
-  Future<SearchResponse?> search(String q,String page) async {
+  Future<SearchResponse?> search(String q, String page, {int limit = 10}) async {
     var response = await DioProvider.get(
       endpoint: Apis.searchDoctors,
       headers: {"Authorization": "Bearer ${SharedPref.gettoken()}"},
       queryParameters: {
         "q": q,
         "page": page,
+        "limit": limit,
       },
     );
     try {

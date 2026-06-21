@@ -9,11 +9,11 @@ import 'package:medical_app/features/search/data/models/search_response/search_r
 
 class SearchRepo {
 
-  Future<SearchResponse?> search(String name,String page) async {
+  Future<SearchResponse?> search(String q,String page) async {
     var response = await DioProvider.get(
       endpoint: Apis.searchDoctors,
       headers: {"Authorization": "Bearer ${SharedPref.gettoken()}"},
-      queryParameters: {name: name, page: 1},
+      queryParameters: {q: q, page: 1},
     );
     try {
       if (response.statusCode == 200) {

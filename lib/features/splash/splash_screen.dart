@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:medical_app/core/constants/app_assets.dart';
 import 'package:medical_app/core/functions/navigations.dart';
 import 'package:medical_app/core/routes/routes.dart';
 import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
-import 'package:medical_app/core/widgets/svg_pic.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () async {
+    Future.delayed(const Duration(seconds: 4), () async {
       if (SharedPref.gettoken() != "") {
         pushReplacement(context, Routes.welcome);
       } else {
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPic(assetName: AppAssets.logo, width: 70, height: 70),
+            Lottie.asset(AppAssets.splash),
             Gap(11),
             Text("Doctor Hunt", style: TextStyles.title),
           ],

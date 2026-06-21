@@ -19,4 +19,5 @@ class AppAssets {
   static const String orange = 'assets/images/orange.png';
   static const String back = 'assets/icons/back.svg';
   static const String like = 'assets/icons/like.svg';
+  static const String splash = 'assets/lottie/Healthcare_loader.json';
 }

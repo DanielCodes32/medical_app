@@ -9,8 +9,9 @@ class HomeRepo {
   static Future<PopularDoctorsResponse?> getPopularDoctors() async {
     try {
       var response = await DioProvider.get(
-        endpoint: Apis.doctors,
+        endpoint: Apis.popularDoctors,
         headers: {"Authorization": "Bearer ${SharedPref.gettoken()}"},
+        queryParameters: {"page": 1},
       );
       if (response.statusCode == 200) {
         var data = PopularDoctorsResponse.fromJson(

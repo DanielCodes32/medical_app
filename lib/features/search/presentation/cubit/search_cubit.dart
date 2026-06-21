@@ -14,13 +14,17 @@ class SearchCubit extends Cubit<SearchState> {
   List<Datum> books = [];
 
   void _onTextChanged() {
+
     final query = searchController.text;
     if (query.isNotEmpty) {
       search(query);
     } else {
       emit(SearchInitial());
+
       books = [];
+
     }
+
   }
 
   Future<void> search(String query) async {

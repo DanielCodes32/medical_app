@@ -13,7 +13,10 @@ class SearchRepo {
     var response = await DioProvider.get(
       endpoint: Apis.searchDoctors,
       headers: {"Authorization": "Bearer ${SharedPref.gettoken()}"},
-      queryParameters: {q: q, page: 1},
+      queryParameters: {
+        "q": q,
+        "page": page,
+      },
     );
     try {
       if (response.statusCode == 200) {

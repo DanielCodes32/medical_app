@@ -18,6 +18,6 @@ class Apis {
   static const String governorates = "governorates";
   static const String placeorder = "place-order";
   static const String updateProfile = "update-profile";
-  static const String searchDoctors = "/doctors";
-
+  static const String searchDoctors = "/doctors/search";
+  static const String doctors = "/doctors";
 }

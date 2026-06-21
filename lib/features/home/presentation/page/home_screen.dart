@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:medical_app/core/constants/app_assets.dart';
 import 'package:medical_app/core/routes/routes.dart';
@@ -12,6 +13,7 @@ import 'package:medical_app/core/widgets/image_container.dart';
 import 'package:medical_app/features/home/presentation/widgets/colored_container.dart';
 
 import 'package:medical_app/features/home/presentation/widgets/popular_grid.dart';
+import 'package:medical_app/features/search/presentation/cubit/search_cubit.dart';
 
 
 
@@ -83,26 +85,50 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Gap(30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ColoredContainer(
-                  color: AppColors.purple,
-                  assetName: AppAssets.dentist,
-                ),
-                ColoredContainer(
-                  color: AppColors.green,
-                  assetName: AppAssets.cardiology,
-                ),
-                ColoredContainer(
-                  color: AppColors.orange,
-                  assetName: AppAssets.eye,
-                ),
-                ColoredContainer(
-                  color: AppColors.red,
-                  assetName: AppAssets.fitness,
-                ),
-              ],
+            BlocProvider<SearchCubit>(
+              create: (context) => SearchCubit(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ColoredContainer(
+                    color: AppColors.purple,
+                    assetName: AppAssets.dentist,
+                    ontap: () {
+                      
+                      context.read<SearchCubit>().search("dentist");
+                      pushTo(context, Routes.search);
+                    },
+                    
+                  ),
+                  ColoredContainer(
+                    color: AppColors.green,
+                    assetName: AppAssets.cardiology,
+                    ontap: () {
+                      
+                      context.read<SearchCubit>().search("cardiology");
+                      pushTo(context, Routes.search);
+                    },
+                  ),
+                  ColoredContainer(
+                    color: AppColors.orange,
+                    assetName: AppAssets.eye,
+                    ontap: () {
+                      
+                      context.read<SearchCubit>().search("eye");
+                      pushTo(context, Routes.search);
+                    },
+                  ),
+                  ColoredContainer(
+                    color: AppColors.red,
+                    assetName: AppAssets.fitness,
+                    ontap: () {
+                      
+                      context.read<SearchCubit>().search("fitness");
+                      pushTo(context, Routes.search);
+                    },
+                  ),
+                ],
+              ),
             ),
             PopularGrid(),
           ],

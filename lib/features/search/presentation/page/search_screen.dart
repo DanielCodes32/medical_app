@@ -27,37 +27,40 @@ class SearchScreen extends StatelessWidget {
           child: SvgPic(assetName: AppAssets.back),
         ),
       ),
-      body: BlocBuilder<SearchCubit, SearchState>(
-        builder: (context, state) {
-          var books = context.read<SearchCubit>().books;
-          if (state is SearchLoading) {
-            return GridShimmer(shimmerWidget: BookCardShimmer());
-          }
-         else if (state is SearchError) {
-            return Center(
-              child: Text("No result found"),
-            );
-         }
-          return MyBodyView(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomFormField(
-                    hintText: "Search...",
-                    controller: context.read<SearchCubit>().searchController,
-                    suffixIcon: IconButton(onPressed: (){
-                     context.read<SearchCubit>().searchController.clear();
-                    }, icon: Icon(Icons.close)),
-                    onTap: () {
-
-                    },
-                  ),
-                  Gap(15),
-                  GridView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+      body: MyBodyView(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomFormField(
+                hintText: "Search...",
+                controller: context.read<SearchCubit>().searchController,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    context.read<SearchCubit>().searchController.clear();
+                  },
+                  icon: const Icon(Icons.close),
+                ),
+                onTap: () {},
+              ),
+              const Gap(15),
+              BlocBuilder<SearchCubit, SearchState>(
+                builder: (context, state) {
+                  var books = context.read<SearchCubit>().books;
+                  if (state is SearchLoading) {
+                    return GridShimmer(shimmerWidget: BookCardShimmer());
+                  } else if (state is SearchError) {
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 50.0),
+                        child: Text("No result found"),
+                      ),
+                    );
+                  }
+                  return GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 0.65,
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
@@ -68,12 +71,12 @@ class SearchScreen extends StatelessWidget {
                       return Item(item: book);
                     },
                     itemCount: books.length,
-                  ),
-                ],
+                  );
+                },
               ),
-            ),
-          );
-        },
+            ],
+          ),
+        ),
       ),
     );
   }

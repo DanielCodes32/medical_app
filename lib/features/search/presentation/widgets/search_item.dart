@@ -62,13 +62,13 @@ class SearchItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                     Text(
                       "Dr. ${item?.firstname ?? "Doctor"} ${item?.lastname ?? ""}",
                       style: TextStyles.title.copyWith(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
                       ),
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const Gap(3),
@@ -82,13 +82,29 @@ class SearchItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const Gap(6),
-                    Text(
-                      "${item?.totalappointments ?? 0} Appointments | Score: ${item?.score ?? 0.0}%",
-                      style: TextStyles.caption2.copyWith(
-                        color: AppColors.bodycolor,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 2,
+                      children: [
+                        Text(
+                          "${item?.totalappointments ?? 0} Appointments",
+                          style: TextStyles.caption2.copyWith(
+                            color: AppColors.bodycolor,
+                          ),
+                        ),
+                        Text(
+                          "|",
+                          style: TextStyles.caption2.copyWith(
+                            color: AppColors.lightgrey,
+                          ),
+                        ),
+                        Text(
+                          "Score: ${item?.score ?? 0.0}%",
+                          style: TextStyles.caption2.copyWith(
+                            color: AppColors.bodycolor,
+                          ),
+                        ),
+                      ],
                     ),
                     const Gap(6),
                     

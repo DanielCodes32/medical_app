@@ -90,20 +90,15 @@ class _SearchScreenState extends State<SearchScreen> {
                   }
                   return Column(
                     children: [
-                      GridView.builder(
+                      ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 2.1,
-                          crossAxisCount: 1,
-                          mainAxisSpacing: 12,
-                          crossAxisSpacing: 12,
-                        ),
+                        itemCount: books.length,
+                        separatorBuilder: (context, index) => const Gap(12),
                         itemBuilder: (context, index) {
                           var book = books[index];
                           return SearchItem(item: book);
                         },
-                        itemCount: books.length,
                       ),
                       if (context.watch<SearchCubit>().isLoadingMore)
                         const Padding(

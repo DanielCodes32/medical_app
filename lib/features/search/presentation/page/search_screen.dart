@@ -50,11 +50,11 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: GestureDetector(
-          onTap: () {
+        leading: IconButton(
+          onPressed: () {
             pop(context);
           },
-          child: SvgPic(assetName: AppAssets.back),
+          icon: SvgPic(assetName: AppAssets.back),
         ),
       ),
       body: MyBodyView(
@@ -103,9 +103,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       if (context.watch<SearchCubit>().isLoadingMore)
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
+                          child: Center(child: CircularProgressIndicator()),
                         ),
                     ],
                   );

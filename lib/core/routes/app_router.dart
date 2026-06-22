@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:medical_app/core/routes/routes.dart';
 import 'package:medical_app/features/auth/presentation/page/login_screen.dart';
 import 'package:medical_app/features/auth/presentation/page/register_screen.dart';
+import 'package:medical_app/features/doctor_details/presentation/cubit/doctor_details_cubit.dart';
+import 'package:medical_app/features/doctor_details/presentation/page/doctor_details_screen.dart';
 import 'package:medical_app/features/main_app_screen/base_home.dart';
 import 'package:medical_app/features/search/presentation/cubit/search_cubit.dart';
 import 'package:medical_app/features/search/presentation/page/search_screen.dart';
@@ -42,6 +44,12 @@ class AppRouter {
             child: const SearchScreen(),
           );
         },
+      ),
+      GoRoute(
+        path: Routes.doctorDetails,
+        builder: (context, state) =>  BlocProvider<DoctorDetailsCubit>(create: (BuildContext context) {  
+          return DoctorDetailsCubit(id: state.extra.toString());},
+        child: DoctorDetailsScreen()),
       ),
     ],
   );

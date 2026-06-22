@@ -5,7 +5,7 @@ import 'package:medical_app/features/home/presentation/cubit/home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(InitalHomeState());
-  
+
   List<Datum> popularDoctors = [];
   int currentPage = 1;
   int totalPages = 1;
@@ -29,14 +29,18 @@ class HomeCubit extends Cubit<HomeState> {
     if (data != null) {
       var newDoctors = data.data ?? [];
       popularDoctors.addAll(newDoctors);
-      totalPages = data.totalpages ?? (newDoctors.length == 10 ? currentPage + 1 : currentPage);
+      totalPages =
+          data.totalpages ??
+          (newDoctors.length == 10 ? currentPage + 1 : currentPage);
       currentPage++;
       emit(SuccessHomeState());
     } else {
       if (loadMore) {
         emit(SuccessHomeState());
       } else {
-        emit(ErrorHomeState(message: data?.message ?? "Failed to load doctors"));
+        emit(
+          ErrorHomeState(message: data?.message ?? "Failed to load doctors"),
+        );
       }
     }
   }

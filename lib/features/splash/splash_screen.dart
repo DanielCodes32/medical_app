@@ -8,7 +8,6 @@ import 'package:medical_app/core/routes/routes.dart';
 import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

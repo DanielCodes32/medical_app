@@ -9,7 +9,6 @@ import 'package:medical_app/core/styles/text_styles.dart';
 import 'package:medical_app/core/widgets/custom_form_field.dart';
 import 'package:medical_app/core/widgets/image_container.dart';
 
-
 import 'package:medical_app/features/home/presentation/widgets/colored_container.dart';
 import 'package:medical_app/features/home/presentation/widgets/popular_grid.dart';
 import 'package:medical_app/features/home/presentation/cubit/home_cubit.dart';
@@ -148,9 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (context.read<HomeCubit>().isLoadingMore) {
                   return const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   );
                 }
                 return const SizedBox.shrink();

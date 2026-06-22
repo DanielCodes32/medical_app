@@ -42,7 +42,11 @@ class SearchCubit extends Cubit<SearchState> {
       emit(SearchLoading());
     }
 
-    var data = await SearchRepo().search(query, currentPage.toString(), limit: 10);
+    var data = await SearchRepo().search(
+      query,
+      currentPage.toString(),
+      limit: 10,
+    );
     isLoadingMore = false;
 
     // Guard against race conditions for different query responses
@@ -51,7 +55,9 @@ class SearchCubit extends Cubit<SearchState> {
     if (data != null) {
       var newDoctors = data.data ?? [];
       books.addAll(newDoctors);
-      totalPages = data.totalpages ?? (newDoctors.length == 10 ? currentPage + 1 : currentPage);
+      totalPages =
+          data.totalpages ??
+          (newDoctors.length == 10 ? currentPage + 1 : currentPage);
       currentPage++;
       emit(SearchSuccess());
     } else {

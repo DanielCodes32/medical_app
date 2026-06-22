@@ -5,22 +5,26 @@ import 'package:gap/gap.dart';
 import 'package:medical_app/core/constants/app_assets.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
+import 'package:medical_app/core/functions/navigations.dart';
+import 'package:medical_app/core/routes/routes.dart';
 import 'package:medical_app/features/home/data/models/popular_doctors_response/datum.dart';
 
 class SearchItem extends StatelessWidget {
   final Datum? item;
   final VoidCallback? onBookTap;
 
-  const SearchItem({
-    super.key,
-    this.item,
-    this.onBookTap,
-  });
+  const SearchItem({super.key, this.item, this.onBookTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
+    return GestureDetector(
+      onTap: () {
+        if (item?.id != null) {
+          pushTo(context, Routes.doctorDetails, extra: item!.id.toString());
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
         borderRadius: BorderRadius.circular(12),
@@ -37,7 +41,6 @@ class SearchItem extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
@@ -57,12 +60,12 @@ class SearchItem extends StatelessWidget {
                 ),
               ),
               const Gap(14),
-              
+
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
+                    Text(
                       "Dr. ${item?.firstname ?? "Doctor"} ${item?.lastname ?? ""}",
                       style: TextStyles.title.copyWith(
                         fontSize: 17,
@@ -107,7 +110,7 @@ class SearchItem extends StatelessWidget {
                       ],
                     ),
                     const Gap(6),
-                    
+
                     Row(
                       children: [
                         Container(
@@ -131,7 +134,7 @@ class SearchItem extends StatelessWidget {
                   ],
                 ),
               ),
-              
+
               IconButton(
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
@@ -145,12 +148,11 @@ class SearchItem extends StatelessWidget {
             ],
           ),
           const Gap(12),
-         
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -172,7 +174,9 @@ class SearchItem extends StatelessWidget {
                         ignoreGestures: true,
                         itemCount: 5,
                         itemSize: 14,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                        itemPadding: const EdgeInsets.symmetric(
+                          horizontal: 1.0,
+                        ),
                         itemBuilder: (context, _) =>
                             const Icon(Icons.star, color: Colors.amber),
                         onRatingUpdate: (rating) {},
@@ -188,11 +192,14 @@ class SearchItem extends StatelessWidget {
                   ),
                 ],
               ),
-              
+
               GestureDetector(
                 onTap: onBookTap,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.circular(8),
@@ -210,6 +217,13 @@ class SearchItem extends StatelessWidget {
           ),
         ],
       ),
+      )
     );
   }
 }
+    
+  
+
+
+  
+

@@ -1,7 +1,5 @@
 import 'package:medical_app/features/home/data/models/popular_doctors_response/datum.dart';
 
-
-
 class SearchResponse {
   List<Datum>? data;
   int? total;

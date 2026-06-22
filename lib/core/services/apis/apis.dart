@@ -20,4 +20,5 @@ class Apis {
   static const String updateProfile = "update-profile";
   static const String searchDoctors = "/doctors/search";
   static const String popularDoctors = "/analytics/doctors/top";
+  static const String doctorDetails = "/doctors/:id";
 }

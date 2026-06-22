@@ -8,8 +8,8 @@ class ColoredContainer extends StatelessWidget {
   const ColoredContainer({
     super.key,
     required this.color,
-    required this.assetName, required this.ontap,
-
+    required this.assetName,
+    required this.ontap,
   });
 
   @override

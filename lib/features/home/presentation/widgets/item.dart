@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:medical_app/core/constants/app_assets.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
@@ -59,9 +60,7 @@ class Item extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    ((item?.firstname ?? "Doctor") +
-                        " " +
-                        (item?.lastname ?? "")),
+                    "${item?.firstname ?? "Doctor"} ${item?.lastname ?? ""}",
                     style: TextStyles.title1.copyWith(
                       fontSize: 15,
                       color: AppColors.blackColor,
@@ -79,17 +78,18 @@ class Item extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const Gap(6),
-                  Row(
-                    children: List.generate(
-                      5,
-                      (starIndex) => Icon(
-                        starIndex < 4
-                            ? Icons.star_rounded
-                            : Icons.star_outline_rounded,
-                        color: const Color(0xffFFD700),
-                        size: 18,
-                      ),
-                    ),
+                  RatingBar.builder(
+                    initialRating: item?.averagerating ?? 0.0,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    ignoreGestures: true,
+                    itemCount: 5,
+                    itemSize: 18,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+                    itemBuilder: (context, _) =>
+                        const Icon(Icons.star, color: Colors.amber),
+                    onRatingUpdate: (rating) {},
                   ),
                 ],
               ),

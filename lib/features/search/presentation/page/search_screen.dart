@@ -8,7 +8,7 @@ import 'package:medical_app/core/shimmer/grid_shimmer.dart';
 import 'package:medical_app/core/widgets/custom_form_field.dart';
 import 'package:medical_app/core/widgets/mybodyview.dart';
 import 'package:medical_app/core/widgets/svg_pic.dart';
-import 'package:medical_app/features/home/presentation/widgets/item.dart';
+import 'package:medical_app/features/search/presentation/widgets/search_item.dart';
 import 'package:medical_app/features/search/presentation/cubit/search_cubit.dart';
 import 'package:medical_app/features/search/presentation/cubit/search_state.dart';
 
@@ -94,14 +94,14 @@ class _SearchScreenState extends State<SearchScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 0.65,
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
+                          childAspectRatio: 2.1,
+                          crossAxisCount: 1,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
                         ),
                         itemBuilder: (context, index) {
                           var book = books[index];
-                          return Item(item: book);
+                          return SearchItem(item: book);
                         },
                         itemCount: books.length,
                       ),

@@ -17,8 +17,9 @@ class Item extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (item?.id != null) {
-          pushTo(context, Routes.doctorDetails, extra: item!.id.toString());
+        final doctorId = item?.doctorid ?? item?.id;
+        if (doctorId != null) {
+          pushTo(context, Routes.doctorDetails, extra: doctorId.toString());
         }
       },
       child: Container(

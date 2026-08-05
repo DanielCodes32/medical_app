@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           } else if (state is AuthErrorState) {
             mydiag(
               context,
-              "Registration failed. Please try again.",
+              state.message,
               AppColors.redcolor,
             );
           }

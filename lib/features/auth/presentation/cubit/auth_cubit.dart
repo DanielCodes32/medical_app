@@ -21,33 +21,57 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> login() async {
     emit(AuthLoadingState());
-    var params = Authparams(
-      email: emailController.text,
-      password: passwordController.text,
-    );
-    var data = await AuthRepo.login(params);
-    if (data != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState());
+    try {
+      var params = Authparams(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      var data = await AuthRepo.login(params);
+      if (data != null && (data.error == null || data.error!.isEmpty)) {
+        emit(AuthSuccessState());
+      } else {
+        String errorMessage = "Something went wrong";
+        if (data?.error != null && data!.error!.isNotEmpty) {
+          errorMessage = data.error!.first.toString();
+        } else if (data?.message != null && data!.message!.isNotEmpty) {
+          errorMessage = data.message!;
+        }
+        emit(AuthErrorState(
+          message: errorMessage,
+        ));
+      }
+    } catch (e) {
+      emit(AuthErrorState(message: e.toString()));
     }
   }
 
   Future<void> register() async {
     emit(AuthLoadingState());
-    var params = Authparams(
-      firstname: firstnameController.text,
-      lastname: lastnameController.text,
-      username: usernameController.text,
-      email: emailController.text,
-      password: passwordController.text,
-      role: roleController.text,
-    );
-    var data = await AuthRepo.register(params);
-    if (data != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState());
+    try {
+      var params = Authparams(
+        firstname: firstnameController.text,
+        lastname: lastnameController.text,
+        username: usernameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+        role: roleController.text,
+      );
+      var data = await AuthRepo.register(params);
+      if (data != null && (data.error == null || data.error!.isEmpty)) {
+        emit(AuthSuccessState());
+      } else {
+        String errorMessage = "Something went wrong";
+        if (data?.error != null && data!.error!.isNotEmpty) {
+          errorMessage = data.error!.first.toString();
+        } else if (data?.message != null && data!.message!.isNotEmpty) {
+          errorMessage = data.message!;
+        }
+        emit(AuthErrorState(
+          message: errorMessage,
+        ));
+      }
+    } catch (e) {
+      emit(AuthErrorState(message: e.toString()));
     }
   }
 

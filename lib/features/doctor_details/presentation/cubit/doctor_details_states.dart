@@ -5,4 +5,7 @@ class DoctorDetailsLoadingState extends DoctorDetailsState {}
 
 class DoctorDetailsLoadedState extends DoctorDetailsState {}
 
-class DoctorDetailsErrorState extends DoctorDetailsState {}
+class DoctorDetailsErrorState extends DoctorDetailsState {
+  final String? message;
+  DoctorDetailsErrorState({required this.message});
+}

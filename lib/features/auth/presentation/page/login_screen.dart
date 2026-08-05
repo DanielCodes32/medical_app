@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
           } else if (state is AuthErrorState) {
             mydiag(
               context,
-              "Login failed. Please try again.",
+              state.message,
               AppColors.redcolor,
             );
           }

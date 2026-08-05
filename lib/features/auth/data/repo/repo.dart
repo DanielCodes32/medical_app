@@ -16,17 +16,26 @@ class AuthRepo {
         endpoint: Apis.login,
         data: params.toJson(),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var data = AuthResponse.fromJson(response.data as Map<String, dynamic>);
         await SharedPref.savetoken(data.data?.token);
         await SharedPref.saveuserinfo(data.data?.user);
         return data;
       } else {
+        if (response.data != null && response.data is Map<String, dynamic>) {
+          return AuthResponse.fromJson(response.data as Map<String, dynamic>);
+        }
         return null;
       }
+    } on DioException catch (err) {
+      log(err.toString());
+      if (err.response?.data != null && err.response?.data is Map<String, dynamic>) {
+        return AuthResponse.fromJson(err.response!.data as Map<String, dynamic>);
+      }
+      return AuthResponse(error: [err.message ?? "Connection error occurred"]);
     } on Exception catch (err) {
       log(err.toString());
-      return null;
+      return AuthResponse(error: [err.toString()]);
     }
   }
 
@@ -36,15 +45,24 @@ class AuthRepo {
         endpoint: Apis.register,
         data: params.toJson(),
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var data = AuthResponse.fromJson(response.data as Map<String, dynamic>);
         return data;
       } else {
+        if (response.data != null && response.data is Map<String, dynamic>) {
+          return AuthResponse.fromJson(response.data as Map<String, dynamic>);
+        }
         return null;
       }
+    } on DioException catch (err) {
+      log(err.toString());
+      if (err.response?.data != null && err.response?.data is Map<String, dynamic>) {
+        return AuthResponse.fromJson(err.response!.data as Map<String, dynamic>);
+      }
+      return AuthResponse(error: [err.message ?? "Connection error occurred"]);
     } on Exception catch (err) {
       log(err.toString());
-      return null;
+      return AuthResponse(error: [err.toString()]);
     }
   }
 

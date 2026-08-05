@@ -29,7 +29,7 @@ class DoctorDetailsScreen extends StatelessWidget {
       body: BlocBuilder<DoctorDetailsCubit, DoctorDetailsState>(
         builder: (context, state) {
           final cubit = context.read<DoctorDetailsCubit>();
-          final doctor = cubit.doctorDetails?.data;
+          final doctor = cubit.doctorDetails;
 
           if (state is DoctorDetailsErrorState) {
             return Center(
@@ -363,7 +363,7 @@ class DoctorDetailsScreen extends StatelessWidget {
       bottomNavigationBar: BlocBuilder<DoctorDetailsCubit, DoctorDetailsState>(
         builder: (context, state) {
           final cubit = context.read<DoctorDetailsCubit>();
-          final doctor = cubit.doctorDetails?.data;
+          final doctor = cubit.doctorDetails;
           if (doctor == null) return const SizedBox.shrink();
 
           return Container(

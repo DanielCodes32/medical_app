@@ -8,14 +8,27 @@ class AuthResponse {
 
   AuthResponse({this.data, this.message, this.error, this.status});
 
-  factory AuthResponse.fromJson(Map<String, dynamic> json) => AuthResponse(
-    data: json['data'] == null
-        ? null
-        : Data.fromJson(json['data'] as Map<String, dynamic>),
-    message: json['message'] as String?,
-    error: json['error'] as List<dynamic>?,
-    status: json['status'] as int?,
-  );
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    List<dynamic>? parsedError;
+    if (json['error'] != null) {
+      if (json['error'] is List) {
+        parsedError = json['error'] as List<dynamic>;
+      } else if (json['error'] is String) {
+        parsedError = [json['error'] as String];
+      } else {
+        parsedError = [json['error'].toString()];
+      }
+    }
+
+    return AuthResponse(
+      data: json['data'] == null
+          ? null
+          : Data.fromJson(json['data'] as Map<String, dynamic>),
+      message: json['message'] as String?,
+      error: parsedError,
+      status: json['status'] as int?,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     'data': data?.toJson(),

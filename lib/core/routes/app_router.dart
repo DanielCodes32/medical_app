@@ -9,8 +9,10 @@ import 'package:medical_app/features/doctor_details/presentation/page/doctor_det
 import 'package:medical_app/features/main_app_screen/base_home.dart';
 import 'package:medical_app/features/search/presentation/cubit/search_cubit.dart';
 import 'package:medical_app/features/search/presentation/page/search_screen.dart';
+import 'package:medical_app/features/doctor_profile/presentation/page/doctor_profile_setup_screen.dart';
 import 'package:medical_app/features/splash/splash_screen.dart';
 import 'package:medical_app/features/welcome/welcome_screen.dart';
+
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -19,7 +21,7 @@ class AppRouter {
     navigatorKey: navigatorKey,
     routes: [
       GoRoute(
-        path: Routes.splash,
+        path: Routes.doctorProfileSetup,
         builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
@@ -51,6 +53,11 @@ class AppRouter {
           return DoctorDetailsCubit(id: state.extra.toString());},
         child: DoctorDetailsScreen()),
       ),
+      GoRoute(
+        path: Routes.splash,
+        builder: (context, state) => const DoctorProfileSetupScreen(),
+      ),
     ],
   );
 }
+

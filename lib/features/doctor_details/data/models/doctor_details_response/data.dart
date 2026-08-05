@@ -1,6 +1,6 @@
 import 'rating.dart';
 
-class Data {
+class DoctorDetailsResponse {
   int? id;
   int? userid;
   String? firstname;
@@ -17,7 +17,7 @@ class Data {
   int? patients;
   List<Rating>? ratings;
 
-  Data({
+  DoctorDetailsResponse({
     this.id,
     this.userid,
     this.firstname,
@@ -35,7 +35,7 @@ class Data {
     this.ratings,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory DoctorDetailsResponse.fromJson(Map<String, dynamic> json) => DoctorDetailsResponse(
     id: json['id'] as int?,
     userid: json['userid'] as int?,
     firstname: json['firstname'] as String?,

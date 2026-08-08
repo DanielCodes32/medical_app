@@ -192,7 +192,9 @@ class DoctorProfileCubit extends Cubit<DoctorProfileState> {
         finalImageUrl = uploadedUrl;
         imageUrl = uploadedUrl;
       } else if (finalImageUrl.isEmpty) {
-        finalImageUrl = "https://example.com/uploads/doctors/dr_ahmed.jpg";
+        emit(DoctorProfileError("Please upload a profile image."));
+        return;
+
       }
 
       // Step 2: Get user ID from SharedPref

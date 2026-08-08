@@ -5,13 +5,18 @@ void mydiag(BuildContext context, String message, Color color) {
   final mediaQuery = MediaQuery.of(context);
   final isError = color == AppColors.redcolor || color == AppColors.red;
 
+  final double bottomMargin = mediaQuery.size.height -
+      mediaQuery.padding.top -
+      mediaQuery.viewInsets.bottom -
+      100;
+
   ScaffoldMessenger.of(context).clearSnackBars();
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: color,
       behavior: SnackBarBehavior.floating,
       margin: EdgeInsets.only(
-        bottom: mediaQuery.size.height - mediaQuery.padding.top - 80,
+        bottom: bottomMargin > 0 ? bottomMargin : 10,
         left: 16,
         right: 16,
       ),

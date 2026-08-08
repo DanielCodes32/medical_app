@@ -21,7 +21,7 @@ class AppRouter {
     navigatorKey: navigatorKey,
     routes: [
       GoRoute(
-        path: Routes.doctorProfileSetup,
+        path: Routes.splash,
         builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
@@ -54,7 +54,7 @@ class AppRouter {
         child: DoctorDetailsScreen()),
       ),
       GoRoute(
-        path: Routes.splash,
+        path: Routes.doctorProfileSetup,
         builder: (context, state) => const DoctorProfileSetupScreen(),
       ),
     ],

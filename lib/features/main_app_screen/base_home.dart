@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_app/core/constants/app_assets.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/widgets/svg_pic.dart';
+import 'package:medical_app/core/services/local/shared_pref.dart';
+import 'package:medical_app/features/doctor_home/presentation/cubit/doctor_home_cubit.dart';
+import 'package:medical_app/features/doctor_home/presentation/page/doctor_home_screen.dart';
 import 'package:medical_app/features/home/presentation/cubit/home_cubit.dart';
 import 'package:medical_app/features/home/presentation/page/home_screen.dart';
 
@@ -23,18 +26,29 @@ class _BaseHomeState extends State<BaseHome> {
   }
 
   int selectedIndex = 0;
-  final List<Widget> screens = [
-    Center(
-      child: BlocProvider<HomeCubit>(
-        create: (BuildContext context) => HomeCubit()..getPopularDoctors(),
-        child: HomeScreen(),
-      ),
-    ),
 
-    Center(child: Text("favorite")),
-    Center(child: Text("book")),
-    Center(child: Text("message")),
-  ];
+  List<Widget> get screens {
+    final isDoctor =
+        SharedPref.getuserinfo()?.role?.toLowerCase() == 'doctor';
+
+    return [
+      isDoctor
+          ? BlocProvider<DoctorHomeCubit>(
+              create: (context) => DoctorHomeCubit(),
+              child: const DoctorHomeScreen(),
+            )
+          : Center(
+              child: BlocProvider<HomeCubit>(
+                create: (BuildContext context) =>
+                    HomeCubit()..getPopularDoctors(),
+                child: HomeScreen(),
+              ),
+            ),
+      const Center(child: Text("favorite")),
+      const Center(child: Text("book")),
+      const Center(child: Text("message")),
+    ];
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

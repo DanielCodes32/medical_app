@@ -32,7 +32,7 @@ class _DoctorProfileSetupScreenState extends State<DoctorProfileSetupScreen> {
         listener: (context, state) {
           if (state is DoctorProfileSuccess) {
             mydiag(context, state.message, AppColors.primaryColor);
-            pushReplacement(context, Routes.home);
+            pushReplacement(context, Routes.login);
           } else if (state is DoctorProfileError) {
             mydiag(context, state.message, AppColors.redcolor);
           } else if (state is ImageUploadingState) {

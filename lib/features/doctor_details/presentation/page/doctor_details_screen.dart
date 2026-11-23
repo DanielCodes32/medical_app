@@ -6,6 +6,10 @@ import 'package:gap/gap.dart';
 import 'package:medical_app/core/constants/app_assets.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
+import 'package:medical_app/core/functions/custom_snake_bar.dart';
+import 'package:medical_app/core/functions/navigations.dart';
+import 'package:medical_app/core/routes/routes.dart';
+import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/core/widgets/mybodyview.dart';
 import 'package:medical_app/features/doctor_details/presentation/cubit/doctor_details_cubit.dart';
 import 'package:medical_app/features/doctor_details/presentation/cubit/doctor_details_states.dart';
@@ -381,7 +385,16 @@ class DoctorDetailsScreen extends StatelessWidget {
             child: SafeArea(
               child: ElevatedButton(
                 onPressed: () {
-                
+                  if (!SharedPref.isProfileComplete()) {
+                    mydiag(
+                      context,
+                      "Please complete your profile before booking an appointment",
+                      AppColors.orangecolor,
+                    );
+                    pushTo(context, Routes.patientProfile);
+                    return;
+                  }
+                  pushTo(context, Routes.booking, extra: doctor);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,

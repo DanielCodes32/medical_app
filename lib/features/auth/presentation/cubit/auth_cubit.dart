@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/features/auth/data/models/authparams.dart';
 import 'package:medical_app/features/auth/data/models/forgot_password_params.dart';
 import 'package:medical_app/features/auth/data/repo/repo.dart';
@@ -18,6 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
   final roleController = TextEditingController(text: 'Patient');
   final newPasswordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  String resettoken = "";
 
   Future<void> login() async {
     emit(AuthLoadingState());
@@ -28,7 +28,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
       var data = await AuthRepo.login(params);
       if (data != null && (data.error == null || data.error!.isEmpty)) {
-        emit(AuthSuccessState());
+        emit(AuthSuccessState(role: data.data?.user?.role));
       } else {
         String errorMessage = "Something went wrong";
         if (data?.error != null && data!.error!.isNotEmpty) {
@@ -36,9 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
         } else if (data?.message != null && data!.message!.isNotEmpty) {
           errorMessage = data.message!;
         }
-        emit(AuthErrorState(
-          message: errorMessage,
-        ));
+        emit(AuthErrorState(message: errorMessage));
       }
     } catch (e) {
       emit(AuthErrorState(message: e.toString()));
@@ -58,7 +56,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
       var data = await AuthRepo.register(params);
       if (data != null && (data.error == null || data.error!.isEmpty)) {
-        emit(AuthSuccessState());
+        emit(AuthSuccessState(role: data.data?.user?.role));
       } else {
         String errorMessage = "Something went wrong";
         if (data?.error != null && data!.error!.isNotEmpty) {
@@ -66,9 +64,7 @@ class AuthCubit extends Cubit<AuthState> {
         } else if (data?.message != null && data!.message!.isNotEmpty) {
           errorMessage = data.message!;
         }
-        emit(AuthErrorState(
-          message: errorMessage,
-        ));
+        emit(AuthErrorState(message: errorMessage));
       }
     } catch (e) {
       emit(AuthErrorState(message: e.toString()));
@@ -77,6 +73,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> forgotPassword() async {
     emit(ForgotPasswordLoadingState());
+    resettoken = "";
     var params = ForgotPasswordParams(email: emailController.text);
     var result = await AuthRepo.forgotPassword(params);
     if (result.success) {
@@ -92,10 +89,30 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> verifyOtp() async {
     emit(VerifyOtpLoadingState());
-    final userId = SharedPref.getUserId();
-    var params = VerifyOtpParams(userId: userId, otpCode: otpController.text);
+    
+    var params = VerifyOtpParams(
+      otpCode: otpController.text,
+      email: emailController.text,
+    );
     var result = await AuthRepo.verifyOtp(params);
     if (result.success) {
+      final data = result.data?['data'];
+      if (data is String) {
+        resettoken = data;
+      } else if (data is Map<String, dynamic>) {
+        resettoken = (data['resettoken'] ??
+                data['resetToken'] ??
+                data['token'] ??
+                '')
+            .toString();
+      }
+      if (resettoken.isEmpty && result.data != null) {
+        resettoken = (result.data!['resettoken'] ??
+                result.data!['resetToken'] ??
+                result.data!['token'] ??
+                '')
+            .toString();
+      }
       emit(
         VerifyOtpSuccessState(result.message ?? "OTP verified successfully!"),
       );
@@ -106,10 +123,10 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> resetPassword() async {
     emit(ResetPasswordLoadingState());
-    final userId = SharedPref.getUserId();
+    
     var params = ResetPasswordParams(
-      userId: userId,
       newPassword: newPasswordController.text,
+      resettoken: resettoken,
     );
     var result = await AuthRepo.resetPassword(params);
     if (result.success) {

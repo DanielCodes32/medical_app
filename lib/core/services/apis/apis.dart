@@ -1,5 +1,5 @@
 class Apis {
-  static const String baseUrl = "http://192.168.1.7:3000/api";
+  static const String baseUrl = "http://192.168.1.9:3000/api";
   static const String login = "/auth/login";
   static const String register = "/auth/register";
   static const String forgotPassword = "/auth/forgot-password";
@@ -21,10 +21,13 @@ class Apis {
   static const String searchDoctors = "/doctors/search";
   static const String popularDoctors = "/analytics/doctors/top";
   static const String doctorDetails = "/doctors/:id";
+  static const String doctorAvailabilities = "/availabilities/doctor/:id";
+  static const String appointments = "/appointments";
   static const String updateDoctor = "/auth/doctors/:id";
+  static const String patientDetails = "/patients/:id";
+  static const String updatePatient = "/patients/:id";
 
   // Cloudinary
   static const String cloudinaryCloudName = "vtn90x1q";
   static const String cloudinaryUploadPreset = "medical_app";
 }
-

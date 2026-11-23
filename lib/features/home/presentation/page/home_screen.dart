@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -7,7 +8,6 @@ import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
 import 'package:medical_app/core/widgets/custom_form_field.dart';
-import 'package:medical_app/core/widgets/image_container.dart';
 
 import 'package:medical_app/features/home/presentation/widgets/colored_container.dart';
 import 'package:medical_app/features/home/presentation/widgets/popular_grid.dart';
@@ -47,6 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var user = SharedPref.getuserinfo();
+    final patientImage = SharedPref.getPatientImage();
+
     return Scaffold(
       body: SingleChildScrollView(
         controller: _scrollController,
@@ -76,10 +78,43 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Hello, ${user == null ? "user" : user.username} ",
                           style: TextStyles.title1,
                         ),
-                        ImageContainer(
-                          image: Image.asset(AppAssets.profile),
-                          width: 60,
-                          height: 60,
+                        GestureDetector(
+                          onTap: () {
+                            pushTo(context, Routes.patientProfile);
+                          },
+                          child: Container(
+                            width: 55,
+                            height: 55,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.8),
+                                width: 2,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.1),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: ClipOval(
+                              child: patientImage.isNotEmpty
+                                  ? CachedNetworkImage(
+                                      imageUrl: patientImage,
+                                      fit: BoxFit.cover,
+                                      errorWidget: (context, url, error) => Image.asset(
+                                        AppAssets.profile,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      AppAssets.profile,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          ),
                         ),
                       ],
                     ),

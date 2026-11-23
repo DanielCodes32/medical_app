@@ -198,7 +198,7 @@ class DoctorProfileCubit extends Cubit<DoctorProfileState> {
       }
 
       // Step 2: Get user ID from SharedPref
-      final userId = SharedPref.getuserinfo()?.id ?? SharedPref.getUserId();
+      final userId = SharedPref.getSpecializedId();
 
       // Step 3: Build DoctorProfileModel payload
       final profileModel = DoctorProfileModel(

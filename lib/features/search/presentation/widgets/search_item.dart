@@ -5,8 +5,10 @@ import 'package:gap/gap.dart';
 import 'package:medical_app/core/constants/app_assets.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
+import 'package:medical_app/core/functions/custom_snake_bar.dart';
 import 'package:medical_app/core/functions/navigations.dart';
 import 'package:medical_app/core/routes/routes.dart';
+import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/features/home/data/models/popular_doctors_response/datum.dart';
 
 class SearchItem extends StatelessWidget {
@@ -194,7 +196,21 @@ class SearchItem extends StatelessWidget {
               ),
 
               GestureDetector(
-                onTap: onBookTap,
+                onTap: onBookTap ??
+                    () {
+                      if (item != null) {
+                        if (!SharedPref.isProfileComplete()) {
+                          mydiag(
+                            context,
+                            "Please complete your profile before booking an appointment",
+                            AppColors.orangecolor,
+                          );
+                          pushTo(context, Routes.patientProfile);
+                          return;
+                        }
+                        pushTo(context, Routes.booking, extra: item);
+                      }
+                    },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,

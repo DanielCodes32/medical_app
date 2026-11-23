@@ -5,6 +5,7 @@ import 'package:medical_app/core/functions/custom_snake_bar.dart';
 import 'package:medical_app/core/functions/navigations.dart';
 import 'package:medical_app/core/functions/validation.dart';
 import 'package:medical_app/core/routes/routes.dart';
+import 'package:medical_app/core/services/local/shared_pref.dart';
 import 'package:medical_app/core/styles/app_colors.dart';
 import 'package:medical_app/core/styles/text_styles.dart';
 import 'package:medical_app/core/widgets/custom_form_field.dart';
@@ -31,7 +32,13 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state is AuthSuccessState) {
             mydiag(context, "Login successful!", AppColors.primaryColor);
-            pushReplacement(context, Routes.home);
+            final isDoctor =
+                SharedPref.getuserinfo()?.role?.toLowerCase() == 'doctor';
+            if (isDoctor) {
+              pushReplacement(context, Routes.doctorHome);
+            } else {
+              pushReplacement(context, Routes.home);
+            }
           } else if (state is AuthErrorState) {
             mydiag(
               context,

@@ -11,6 +11,15 @@ class SharedPref {
   static const kuserId = "forgot_user_id";
   static const kfavourite = "favourite";
 
+  static const kspecializedId = "specialized_id";
+  static const kprofileComplete = "is_patient_profile_complete";
+  static const kpatientImage = "patient_image";
+  static const kpatientMobile = "patient_mobile";
+  static const kpatientGender = "patient_gender";
+  static const kpatientDobDay = "patient_dob_day";
+  static const kpatientDobMonth = "patient_dob_month";
+  static const kpatientDobYear = "patient_dob_year";
+
   static Future<void> init() async {
     pref = await SharedPreferences.getInstance();
   }
@@ -50,6 +59,49 @@ class SharedPref {
     return pref.getInt(kuserId) ?? 11;
   }
 
+  static Future<void> saveSpecializedId(int? specializedId) async {
+    if (specializedId == null) return;
+    await pref.setInt(kspecializedId, specializedId);
+  }
+
+  static int getSpecializedId() {
+    final specialized = pref.getInt(kspecializedId);
+    if (specialized != null) return specialized;
+    return getuserinfo()?.id ?? getUserId();
+  }
+
+  static Future<void> setProfileComplete(bool value) async {
+    await pref.setBool(kprofileComplete, value);
+  }
+
+  static bool isProfileComplete() {
+    return pref.getBool(kprofileComplete) ?? false;
+  }
+
+  static Future<void> savePatientProfileLocal({
+    String? image,
+    String? mobile,
+    String? gender,
+    int? day,
+    int? month,
+    int? year,
+  }) async {
+    if (image != null) await pref.setString(kpatientImage, image);
+    if (mobile != null) await pref.setString(kpatientMobile, mobile);
+    if (gender != null) await pref.setString(kpatientGender, gender);
+    if (day != null) await pref.setInt(kpatientDobDay, day);
+    if (month != null) await pref.setInt(kpatientDobMonth, month);
+    if (year != null) await pref.setInt(kpatientDobYear, year);
+    await setProfileComplete(true);
+  }
+
+  static String getPatientImage() => pref.getString(kpatientImage) ?? "";
+  static String getPatientMobile() => pref.getString(kpatientMobile) ?? "";
+  static String getPatientGender() => pref.getString(kpatientGender) ?? "";
+  static int? getPatientDobDay() => pref.getInt(kpatientDobDay);
+  static int? getPatientDobMonth() => pref.getInt(kpatientDobMonth);
+  static int? getPatientDobYear() => pref.getInt(kpatientDobYear);
+
   static Future<void> setstring(String key, String value) async {
     await pref.setString(key, value);
   }
@@ -74,6 +126,7 @@ class SharedPref {
       log(user.toJson().toString());
     }
     await pref.setString(kuser, jsonEncode(user.toJson()));
+    await saveSpecializedId(user.specializedId);
   }
 
   static User? getuserinfo() {

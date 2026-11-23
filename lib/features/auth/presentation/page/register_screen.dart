@@ -30,13 +30,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         listener: (context, state) {
           if (state is AuthSuccessState) {
             mydiag(context, "Registration successful!", AppColors.primaryColor);
-            if (context.read<AuthCubit>().roleController.text == "patient") {
+            final role = state.role?.toLowerCase();
+            if (role == 'doctor') {
+              pushReplacement(context, Routes.doctorProfileSetup);
+            } else {
+              
               pushReplacement(context, Routes.login);
             }
-            else {
-              pushReplacement(context, Routes.doctorProfileSetup);
-            }
-            
           } else if (state is AuthErrorState) {
             mydiag(
               context,

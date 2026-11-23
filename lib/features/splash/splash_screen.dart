@@ -20,8 +20,15 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 4), () async {
+      if (!mounted) return;
       if (SharedPref.gettoken() != "") {
-        pushReplacement(context, Routes.home);
+        final isDoctor =
+            SharedPref.getuserinfo()?.role?.toLowerCase() == 'doctor';
+        if (isDoctor) {
+          pushReplacement(context, Routes.doctorHome);
+        } else {
+          pushReplacement(context, Routes.home);
+        }
       } else {
         pushReplacement(context, Routes.welcome);
       }

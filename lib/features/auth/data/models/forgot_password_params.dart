@@ -8,31 +8,32 @@ class ForgotPasswordParams {
 }
 
 class VerifyOtpParams {
-  final int userId;
+  
+   final String email;
   final String otpCode;
   final String purpose;
 
   VerifyOtpParams({
-    required this.userId,
+   required this.email,
     required this.otpCode,
     this.purpose = "reset_password",
   });
 
   Map<String, dynamic> toJson() => {
-    'userid': userId,
+    'Email': email,
     'otpcode': otpCode,
     'purpose': purpose,
   };
 }
 
 class ResetPasswordParams {
-  final int userId;
+   final String resettoken;
   final String newPassword;
 
-  ResetPasswordParams({required this.userId, required this.newPassword});
+  ResetPasswordParams({required this.resettoken, required this.newPassword});
 
   Map<String, dynamic> toJson() => {
-    'userid': userId,
+    'resettoken': resettoken,
     'newpassword': newPassword,
   };
 }
